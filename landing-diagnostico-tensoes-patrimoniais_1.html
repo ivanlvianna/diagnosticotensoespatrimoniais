@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico VIDA de Tensões Patrimoniais™ · Ivan Vianna CFP®</title>
+<meta name="description" content="Mapeie as tensões invisíveis que governam suas decisões patrimoniais. Duas camadas de análise. Seis dimensões humanas. Seis manifestações patrimoniais.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ve:#1A3C2E;--vm:#2E5C46;--d:#d7ae4d;--dc:#f8e38c;--bg:#0d1f18;--br:#FFFFFF;--ts:rgba(255,255,255,0.72);--tb:rgba(255,255,255,0.92);--sep:rgba(255,255,255,0.10);font-size:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Instrument Sans',sans-serif;background:#ffffff;color:#1a1a1a;-webkit-font-smoothing:antialiased;font-size:1rem}
+a{color:inherit;text-decoration:none}
+
+/* TOPO */
+.topo{background:var(--ve);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(215,174,77,.2)}
+.topo-marca{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--dc);letter-spacing:.04em}
+.topo-cta{display:inline-flex;align-items:center;background:linear-gradient(135deg,var(--d),var(--dc),var(--d));color:var(--ve);font-size:.8rem;font-weight:700;padding:.5rem 1.2rem;border-radius:4px;letter-spacing:.03em;transition:all .2s}
+.topo-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(215,174,77,.3)}
+
+/* HERO */
+.hero{background:var(--bg);background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(46,92,70,.5) 0%,transparent 70%),var(--bg);padding:5rem 2rem 4rem;text-align:center}
+.hero-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.18em;color:var(--d);text-transform:uppercase;margin-bottom:1.5rem}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:300;line-height:1.1;color:var(--br);max-width:760px;margin:0 auto 1.5rem}
+.hero-h1 em{font-style:italic;color:var(--dc)}
+.hero-sub{font-size:1.05rem;color:var(--ts);max-width:560px;margin:0 auto 2.5rem;line-height:1.7}
+.btn-hero{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--d),var(--dc),var(--d));color:var(--ve);font-family:'Instrument Sans',sans-serif;font-size:1rem;font-weight:700;padding:1rem 2.5rem;border-radius:6px;letter-spacing:.03em;transition:all .22s;margin-bottom:.75rem}
+.btn-hero:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(215,174,77,.35)}
+.hero-garantia{font-size:.78rem;color:var(--ts)}
+.hero-badges{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2rem}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:.4rem 1rem;font-size:.78rem;color:var(--ts)}
+
+/* SEÇÕES */
+.secao{padding:5rem 2rem}
+.secao-inner{max-width:900px;margin:0 auto}
+.secao-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.15em;color:var(--d);text-transform:uppercase;margin-bottom:1rem}
+.secao-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;line-height:1.2;margin-bottom:1.5rem}
+.secao-h2 strong{font-weight:600}
+.secao-p{font-size:1rem;color:#444;line-height:1.75;max-width:680px}
+
+/* PROBLEMA */
+.problema{background:#f8f7f4}
+.problema-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:3rem}
+.prob-card{background:#ffffff;border:1px solid #e8e0cc;border-radius:8px;padding:1.5rem;border-top:3px solid var(--d)}
+.prob-card-titulo{font-size:.95rem;font-weight:700;color:var(--ve);margin-bottom:.6rem}
+.prob-card-txt{font-size:.9rem;color:#555;line-height:1.65}
+
+/* TENSÕES */
+.tensoes{background:var(--bg)}
+.tensoes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:3rem}
+.tensao-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:1.5rem;border-left:3px solid var(--d)}
+.tensao-nome{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--dc);margin-bottom:.5rem}
+.tensao-txt{font-size:.9rem;color:var(--ts);line-height:1.6}
+.tensao-frase{font-size:.85rem;font-style:italic;color:rgba(215,174,77,.7);margin-top:.75rem;padding-top:.75rem;border-top:1px solid rgba(255,255,255,.06)}
+
+/* COMO FUNCIONA */
+.como{background:#ffffff}
+.passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3rem}
+.passo{text-align:center}
+.passo-num{width:48px;height:48px;background:var(--ve);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--d)}
+.passo-titulo{font-size:.95rem;font-weight:700;color:var(--ve);margin-bottom:.5rem}
+.passo-txt{font-size:.88rem;color:#555;line-height:1.6}
+
+/* DEPOIMENTOS */
+.depoimentos{background:#f8f7f4}
+.dep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
+.dep-card{background:#ffffff;border:1px solid #e8e0cc;border-radius:8px;padding:1.75rem}
+.dep-aspas{font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--d);line-height:.5;margin-bottom:.75rem}
+.dep-txt{font-size:.92rem;color:#333;line-height:1.7;font-style:italic;margin-bottom:1rem}
+.dep-autor{font-size:.8rem;font-weight:700;color:var(--ve)}
+.dep-cargo{font-size:.78rem;color:#888}
+
+/* AUTOR */
+.autor{background:var(--ve)}
+.autor-inner{max-width:700px;margin:0 auto;display:flex;gap:2.5rem;align-items:flex-start;flex-wrap:wrap}
+.autor-txt h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--br);margin-bottom:.25rem}
+.autor-credencial{font-size:.8rem;font-weight:700;letter-spacing:.1em;color:var(--d);text-transform:uppercase;margin-bottom:1rem}
+.autor-bio{font-size:.95rem;color:rgba(255,255,255,.75);line-height:1.75}
+.autor-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.25rem}
+.autor-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:.3rem .85rem;font-size:.75rem;color:var(--dc)}
+
+/* CTA FINAL */
+.cta-final{background:var(--bg);padding:6rem 2rem;text-align:center}
+.cta-final-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:300;color:var(--br);line-height:1.2;max-width:640px;margin:0 auto 1rem}
+.cta-final-h2 em{font-style:italic;color:var(--dc)}
+.cta-final-sub{font-size:1rem;color:var(--ts);max-width:480px;margin:0 auto 2.5rem;line-height:1.7}
+.preco-bloco{background:rgba(255,255,255,.04);border:1px solid rgba(215,174,77,.2);border-radius:10px;display:inline-block;padding:2rem 3rem;margin-bottom:2rem}
+.preco-label{font-size:.75rem;font-weight:600;letter-spacing:.12em;color:var(--d);text-transform:uppercase;margin-bottom:.5rem}
+.preco-valor{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:var(--dc);line-height:1}
+.preco-detalhe{font-size:.82rem;color:var(--ts);margin-top:.5rem}
+
+/* RODAPÉ */
+.rodape{background:var(--ve);padding:2rem;text-align:center;border-top:1px solid rgba(215,174,77,.1)}
+.rod-txt{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.8}
+
+@media(max-width:600px){
+  .topo{padding:.75rem 1rem}
+  .hero{padding:3.5rem 1.25rem 3rem}
+  .secao{padding:3.5rem 1.25rem}
+  .autor-inner{flex-direction:column;gap:1.5rem}
+  .preco-bloco{padding:1.5rem 2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <div class="topo-marca"><img src="https://raw.githubusercontent.com/ivanlvianna/arquivospessoais/main/logolvan.jpeg" alt="Ivan Vianna" style="height:36px;vertical-align:middle;margin-right:.5rem;border-radius:3px">MÉTODO VIDA™</div>
+  <a class="topo-cta" href="https://pay.hotmart.com/C106318660P" target="_blank">Adquirir diagnóstico →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Diagnóstico VIDA · Instrumento Pago</div>
+  <h1 class="hero-h1">As tensões que o patrimônio carrega — e que você <em>ainda não nomeou</em></h1>
+  <p class="hero-sub">Duas camadas de análise. Seis dimensões humanas. Seis manifestações patrimoniais. O diagnóstico que conecta o invisível ao concreto da sua arquitetura patrimonial.</p>
+  <a class="btn-hero" href="https://pay.hotmart.com/C106318660P" target="_blank">Iniciar meu diagnóstico →</a>
+  <div class="hero-garantia">🔒 Pagamento seguro via Hotmart · Garantia de 7 dias</div>
+  <div class="hero-badges">
+    <span class="hero-badge">Acesso imediato após a compra</span>
+    <span class="hero-badge">Sessão de análise incluída</span>
+    <span class="hero-badge">R$ 1.497,00 · pagamento único</span>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="secao problema">
+  <div class="secao-inner">
+    <div class="secao-eyebrow">O problema que nenhuma análise técnica captura</div>
+    <h2 class="secao-h2">Você pode ter feito a análise certa.<br><strong>E ainda assim tomar a decisão errada.</strong></h2>
+    <p class="secao-p">Porque a decisão não foi tomada com análise — foi tomada com o estado interno de quem a tomou. E esse estado tem nome, origem e padrão.</p>
+    <div class="problema-grid">
+      <div class="prob-card">
+        <div class="prob-card-titulo">Reconhecimento</div>
+        <div class="prob-card-txt">Decisões tomadas para ser visto, não para fazer sentido patrimonial. O status dita a estratégia sem que você perceba.</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-card-titulo">Pertencimento</div>
+        <div class="prob-card-txt">Fianças, doações e escolhas alinhadas ao grupo — não à sua trajetória. O medo de exclusão cobra preço patrimonial.</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-card-titulo">Compensação</div>
+        <div class="prob-card-txt">Gastos que reaparecem após esforço intenso. O patrimônio tenta preencher o que não tem solução financeira.</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-card-titulo">Gratificação imediata</div>
+        <div class="prob-card-txt">O presente consume o futuro. Decisões motivadas pela excitação da novidade, não pela análise.</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-card-titulo">Segurança excessiva</div>
+        <div class="prob-card-txt">Paralisia disfarçada de prudência. Oportunidades perdidas por incerteza gerenciável — custo invisível e progressivo.</div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-card-titulo">Ausência de propósito</div>
+        <div class="prob-card-txt">Patrimônio que cresce sem direção. Decisões fragmentadas sem fio condutor. O "para quê?" sem resposta.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TENSÕES -->
+<section class="secao tensoes">
+  <div class="secao-inner">
+    <div class="secao-eyebrow" style="color:var(--d)">O que o diagnóstico mapeia</div>
+    <h2 class="secao-h2" style="color:var(--br)">Duas camadas.<br><strong style="color:var(--dc)">Doze dimensões.</strong></h2>
+    <p class="secao-p" style="color:var(--ts)">A Camada A mapeia as tensões humanas — forças que operam abaixo da consciência. A Camada B revela como cada uma se manifesta concretamente na sua arquitetura patrimonial.</p>
+    <div class="tensoes-grid">
+      <div class="tensao-card">
+        <div class="tensao-nome">Reconhecimento</div>
+        <div class="tensao-txt">Necessidade de ser visto e validado. Como essa força governa suas decisões patrimoniais sem que você perceba.</div>
+        <div class="tensao-frase">"Decido para impressionar, não para construir."</div>
+      </div>
+      <div class="tensao-card">
+        <div class="tensao-nome">Pertencimento</div>
+        <div class="tensao-txt">Necessidade de fazer parte e manter vínculos. Como o medo de exclusão molda escolhas financeiras.</div>
+        <div class="tensao-frase">"Abro mão do que é meu para manter o que é nosso."</div>
+      </div>
+      <div class="tensao-card">
+        <div class="tensao-nome">Compensação</div>
+        <div class="tensao-txt">Uso do patrimônio para reparar déficits emocionais — privações passadas ou vazios não financeiros.</div>
+        <div class="tensao-frase">"O dinheiro tenta resolver o que o dinheiro não resolve."</div>
+      </div>
+      <div class="tensao-card">
+        <div class="tensao-nome">Gratificação</div>
+        <div class="tensao-txt">Preferência pelo prazer imediato sobre a consolidação de longo prazo. Como a impulsividade opera no patrimônio.</div>
+        <div class="tensao-frase">"O futuro paga o preço do presente que não espera."</div>
+      </div>
+      <div class="tensao-card">
+        <div class="tensao-nome">Segurança</div>
+        <div class="tensao-txt">Necessidade de proteção e controle. Como o excesso de cautela opera como freio patrimonial silencioso.</div>
+        <div class="tensao-frase">"Protejo tanto que esqueço de construir."</div>
+      </div>
+      <div class="tensao-card">
+        <div class="tensao-nome">Propósito</div>
+        <div class="tensao-txt">Necessidade de sentido e legado. Como a ausência de propósito governa a qualidade das decisões patrimoniais.</div>
+        <div class="tensao-frase">"Acumulo, mas não sei para quê."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="secao como">
+  <div class="secao-inner">
+    <div class="secao-eyebrow">Como funciona</div>
+    <h2 class="secao-h2">Do invisível ao <strong>plano de regulação</strong></h2>
+    <div class="passos">
+      <div class="passo">
+        <div class="passo-num">1</div>
+        <div class="passo-titulo">Acesse o diagnóstico</div>
+        <div class="passo-txt">Após a compra, você recebe acesso imediato ao instrumento. O preenchimento leva entre 25 e 35 minutos.</div>
+      </div>
+      <div class="passo">
+        <div class="passo-num">2</div>
+        <div class="passo-titulo">Responda com honestidade</div>
+        <div class="passo-txt">As perguntas medem comportamento real. Não existe resposta certa ou errada — apenas o que é verdadeiro para você.</div>
+      </div>
+      <div class="passo">
+        <div class="passo-num">3</div>
+        <div class="passo-titulo">Resultado imediato</div>
+        <div class="passo-txt">Ao finalizar, você vê seu IDTP™, a tensão dominante, o mapa das 12 dimensões e os custos patrimoniais do seu perfil.</div>
+      </div>
+      <div class="passo">
+        <div class="passo-num">4</div>
+        <div class="passo-titulo">Sessão de análise</div>
+        <div class="passo-txt">Ivan Vianna lê suas respostas antes do encontro e apresenta o Plano VIDA de Regulação das Tensões Patrimoniais™.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="secao depoimentos">
+  <div class="secao-inner">
+    <div class="secao-eyebrow">Quem já passou pelo diagnóstico</div>
+    <h2 class="secao-h2">O que muda quando você <strong>nomeia o que governa</strong></h2>
+    <div class="dep-grid">
+      <div class="dep-card">
+        <div class="dep-aspas">"</div>
+        <div class="dep-txt">Eu achava que meu problema era financeiro. O diagnóstico mostrou que era comportamental. A tensão de compensação estava presente em cada decisão relevante que tomei nos últimos dez anos.</div>
+        <div class="dep-autor">R.A. · Empresário</div>
+        <div class="dep-cargo">São Paulo · SP</div>
+      </div>
+      <div class="dep-card">
+        <div class="dep-aspas">"</div>
+        <div class="dep-txt">Nunca tinha conectado minha necessidade de reconhecimento com as escolhas patrimoniais que fiz. A sessão com Ivan foi a primeira vez que alguém mapeou isso com precisão clínica.</div>
+        <div class="dep-autor">M.F. · Médica · Especialista</div>
+        <div class="dep-cargo">Curitiba · PR</div>
+      </div>
+      <div class="dep-card">
+        <div class="dep-aspas">"</div>
+        <div class="dep-txt">O diagnóstico identificou uma tensão de pertencimento que eu nunca teria reconhecido sozinho. Estava tomando decisões para manter vínculos — não para construir patrimônio.</div>
+        <div class="dep-autor">F.C. · Executivo</div>
+        <div class="dep-cargo">Rio de Janeiro · RJ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOR -->
+<section class="secao autor">
+  <div class="autor-inner">
+    <img src="https://raw.githubusercontent.com/ivanlvianna/arquivospessoais/main/fotolvan.jpeg" alt="Ivan Vianna CFP®" style="width:160px;height:160px;object-fit:cover;border-radius:50%;border:3px solid rgba(215,174,77,.4);flex-shrink:0">
+    <div class="autor-txt">
+      <h3>Ivan Vianna</h3>
+      <div class="autor-credencial">CFP® · Planejador financeiro · Arquiteto de patrimônio</div>
+      <p class="autor-bio">27 anos no mercado financeiro. Especialista em planejamento patrimonial para executivos, médicos, empresários e famílias de alta renda. Idealizador do Método VIDA™ — metodologia que integra finanças comportamentais, neurociências e planejamento patrimonial. Pós-graduando em Neurociências e Comportamento pela PUCRS.</p>
+      <div class="autor-badges">
+        <span class="autor-badge">CFP®</span>
+        <span class="autor-badge">27 anos de mercado</span>
+        <span class="autor-badge">Método VIDA™</span>
+        <span class="autor-badge">PUCRS · Neurociências</span>
+        <span class="autor-badge">Finanças comportamentais</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="secao-eyebrow" style="color:var(--d)">Diagnóstico VIDA de Tensões Patrimoniais™</div>
+  <h2 class="cta-final-h2">Sua próxima decisão patrimonial merece mais do que análise.<br><em>Merece consciência.</em></h2>
+  <p class="cta-final-sub">Não é sobre decidir certo. É sobre garantir que você está no estado certo para decidir — e que sabe quais forças operam abaixo da sua consciência.</p>
+  <div class="preco-bloco">
+    <div class="preco-label">Investimento</div>
+    <div class="preco-valor">R$ 1.497,00</div>
+    <div class="preco-detalhe">Pagamento único · Diagnóstico + sessão de análise · Acesso imediato</div>
+  </div>
+  <br>
+  <a class="btn-hero" href="https://pay.hotmart.com/C106318660P" target="_blank">Adquirir diagnóstico agora →</a>
+  <div class="hero-garantia" style="margin-top:.75rem">Garantia de 7 dias · Pagamento seguro via Hotmart</div>
+</section>
+
+<footer class="rodape">
+  <div class="rod-txt">
+    Ivan Vianna · CFP® · Planejador financeiro · Arquiteto de patrimônio<br>
+    CNPJ 56.099.913/0001-61 · ivanviannafinancas.com.br · WhatsApp: (11) 97953-0555
+  </div>
+</footer>
+
+</body>
+</html>
