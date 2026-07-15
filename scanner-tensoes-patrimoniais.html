@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scanner VIDA de Tensões Patrimoniais™ · Ivan Vianna CFP®</title>
+<meta name="description" content="Descubra qual tensão invisível governa suas decisões patrimoniais. Gratuito. 3 minutos.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ve:#1A3C2E;--vm:#2E5C46;--d:#d7ae4d;--dc:#f8e38c;--bg:#0d1f18;--br:#FFFFFF;--ts:rgba(255,255,255,0.90);--tb:rgba(255,255,255,0.95);--sep:rgba(255,255,255,0.10);--r:8px;font-size:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--tb);min-height:100vh;-webkit-font-smoothing:antialiased;font-size:1rem}
+.topo{background:var(--ve);border-bottom:1px solid rgba(215,174,77,.2);padding:.85rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topo-logo{height:36px;border-radius:3px}
+.topo-marca{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--dc);letter-spacing:.04em}
+.topo-prog-wrap{display:flex;align-items:center;gap:.75rem}
+.topo-prog-label{font-size:.82rem;color:var(--ts);white-space:nowrap}
+.topo-prog-bar{width:100px;height:4px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden}
+.topo-prog-fill{height:100%;background:linear-gradient(90deg,var(--vm),var(--d));border-radius:2px;transition:width .4s ease}
+.tela{display:none}.tela.ativa{display:block}
+
+/* CAPA */
+#tela-capa{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1.5rem;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(46,92,70,.45) 0%,transparent 70%),var(--bg)}
+.capa-eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.18em;color:var(--d);text-transform:uppercase;margin-bottom:1.5rem}
+.capa-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,6vw,3.2rem);font-weight:300;line-height:1.15;color:var(--br);max-width:640px;margin-bottom:1.25rem}
+.capa-h1 em{font-style:italic;color:var(--dc)}
+.capa-sub{font-size:1rem;color:var(--ts);max-width:500px;line-height:1.7;margin-bottom:2.5rem}
+.btn-iniciar{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--d),var(--dc),var(--d));color:var(--ve);font-family:'Instrument Sans',sans-serif;font-size:1rem;font-weight:700;padding:.95rem 2.4rem;border:none;border-radius:var(--r);cursor:pointer;letter-spacing:.04em;transition:all .22s}
+.btn-iniciar:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(215,174,77,.35)}
+.capa-badges{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem}
+.capa-badge{font-size:.8rem;color:var(--ts);display:flex;align-items:center;gap:.3rem}
+.capa-badge::before{content:'·';color:var(--d)}
+
+/* QUIZ */
+#tela-quiz{padding:3rem 1.5rem 6rem}
+.q-wrap{max-width:680px;margin:0 auto}
+.q-progresso{display:flex;gap:.35rem;margin-bottom:2.5rem}
+.q-prog-dot{flex:1;height:3px;background:rgba(255,255,255,.12);border-radius:2px;transition:background .3s}
+.q-prog-dot.feito{background:var(--d)}
+.q-prog-dot.atual{background:rgba(215,174,77,.5)}
+.q-numero{font-size:.72rem;font-weight:700;letter-spacing:.15em;color:var(--d);text-transform:uppercase;margin-bottom:.75rem}
+.q-texto{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:400;line-height:1.35;color:var(--br);margin-bottom:2rem}
+.q-opcoes{display:flex;flex-direction:column;gap:.65rem}
+.q-opcao{display:flex;align-items:flex-start;gap:.85rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:.9rem 1.1rem;cursor:pointer;transition:all .2s;text-align:left;width:100%}
+.q-opcao:hover{background:rgba(215,174,77,.07);border-color:rgba(215,174,77,.3)}
+.q-opcao.sel{background:rgba(215,174,77,.12);border-color:rgba(215,174,77,.5)}
+.q-letra{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--ts);transition:all .2s;margin-top:1px}
+.q-opcao.sel .q-letra{background:var(--d);border-color:var(--d);color:var(--ve)}
+.q-opcao-txt{font-size:.95rem;color:var(--ts);line-height:1.55}
+.q-opcao.sel .q-opcao-txt{color:var(--br)}
+
+/* CAPTURA */
+#tela-captura{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:3rem 1.5rem}
+.cap-inner{max-width:460px;width:100%;text-align:center}
+.cap-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.15em;color:var(--d);text-transform:uppercase;margin-bottom:1rem}
+.cap-h2{font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:600;color:var(--br);line-height:1.25;margin-bottom:.75rem}
+.cap-sub{font-size:.95rem;color:var(--ts);line-height:1.65;margin-bottom:2rem}
+.cap-form{display:flex;flex-direction:column;gap:.85rem;text-align:left}
+.cap-label{font-size:.82rem;font-weight:600;letter-spacing:.06em;color:var(--d);margin-bottom:.3rem;display:block}
+.cap-input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);color:var(--br);font-family:'Instrument Sans',sans-serif;font-size:1rem;padding:.85rem 1rem;transition:all .2s}
+.cap-input:focus{outline:none;border-color:rgba(215,174,77,.5)}
+.cap-input::placeholder{color:rgba(255,255,255,.35)}
+.btn-revelar{width:100%;margin-top:.5rem;background:linear-gradient(135deg,var(--d),var(--dc),var(--d));color:var(--ve);font-family:'Instrument Sans',sans-serif;font-size:1rem;font-weight:700;padding:1rem;border:none;border-radius:var(--r);cursor:pointer;transition:all .22s}
+.btn-revelar:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(215,174,77,.3)}
+.cap-privacidade{text-align:center;margin-top:.75rem;font-size:.82rem;color:var(--ts)}
+
+/* LOADING */
+#tela-loading{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem}
+.loading-ring{width:52px;height:52px;border:3px solid rgba(255,255,255,.08);border-top-color:var(--d);border-radius:50%;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-txt{font-size:1rem;color:var(--ts)}
+
+/* RESULTADO */
+#tela-resultado{padding:3rem 1.5rem 5rem}
+.res-inner{max-width:680px;margin:0 auto}
+.res-supra{font-size:.75rem;font-weight:700;letter-spacing:.15em;color:var(--d);text-transform:uppercase;margin-bottom:1rem}
+.res-titulo{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:300;color:var(--br);line-height:1.2;margin-bottom:2rem}
+.res-titulo strong{font-weight:600;color:var(--dc)}
+.tensao-card{background:linear-gradient(135deg,var(--vm),var(--ve));border:1px solid rgba(215,174,77,.3);border-radius:12px;padding:2.5rem;text-align:center;margin-bottom:2rem}
+.tensao-label{font-size:.75rem;font-weight:700;letter-spacing:.14em;color:var(--d);text-transform:uppercase;margin-bottom:.75rem}
+.tensao-nome{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:var(--dc);line-height:1;margin-bottom:.75rem}
+.tensao-desc{font-size:1rem;color:var(--ts);line-height:1.7;max-width:480px;margin:0 auto 1.5rem}
+.tensao-frase{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(248,227,140,.75);padding-top:1rem;border-top:1px solid rgba(255,255,255,.08)}
+.barras-grid{display:grid;grid-template-columns:1fr;gap:.75rem;margin-bottom:2rem}
+.barra-item{background:rgba(255,255,255,.04);border:1px solid var(--sep);border-radius:var(--r);padding:1rem 1.2rem}
+.barra-topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.barra-nome{font-size:.88rem;font-weight:600;color:var(--ts)}
+.barra-pct{font-size:.82rem;color:var(--d);font-weight:700}
+.barra-wrap{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.barra-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--vm),var(--d));transition:width 1s ease}
+.custo-card{background:rgba(255,255,255,.03);border:1px solid var(--sep);border-radius:var(--r);padding:1.5rem;margin-bottom:2rem}
+.custo-titulo{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--br);margin-bottom:1rem}
+.custo-item{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.85rem}
+.custo-dot{flex-shrink:0;width:7px;height:7px;border-radius:50%;background:var(--d);margin-top:.5rem}
+.custo-txt{font-size:.95rem;color:var(--ts);line-height:1.6}
+.cta-diag{background:linear-gradient(135deg,var(--vm),var(--ve));border:1px solid rgba(215,174,77,.3);border-radius:12px;padding:2.5rem;text-align:center;margin-bottom:1.5rem}
+.cta-diag-titulo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--br);margin-bottom:.75rem}
+.cta-diag-sub{font-size:1rem;color:var(--ts);line-height:1.7;margin-bottom:1.75rem;max-width:480px;margin-left:auto;margin-right:auto}
+.btn-cta{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--d),var(--dc),var(--d));color:var(--ve);font-family:'Instrument Sans',sans-serif;font-size:1rem;font-weight:700;padding:.95rem 2.2rem;border-radius:var(--r);text-decoration:none;transition:all .22s}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(215,174,77,.3)}
+.assinatura{text-align:center;font-size:.82rem;color:var(--ts);padding-top:2rem;border-top:1px solid var(--sep);line-height:1.8}
+
+@media(max-width:540px){.capa-badges{flex-direction:column;align-items:center}}
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <div style="display:flex;align-items:center;gap:.6rem">
+    <img src="https://raw.githubusercontent.com/ivanlvianna/arquivospessoais/main/logolvan.jpeg" alt="Ivan Vianna" class="topo-logo">
+    <div class="topo-marca">MÉTODO VIDA™</div>
+  </div>
+  <div class="topo-prog-wrap">
+    <span class="topo-prog-label" id="prog-label">0 / 10</span>
+    <div class="topo-prog-bar"><div class="topo-prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<div class="tela ativa" id="tela-capa">
+  <div class="capa-eyebrow">Scanner VIDA · Gratuito · 3 minutos</div>
+  <h1 class="capa-h1">Qual tensão invisível governa suas <em>decisões patrimoniais?</em></h1>
+  <p class="capa-sub">10 situações reais. Nenhuma teoria. Ao final, você saberá qual força opera abaixo da sua consciência — e qual é o custo patrimonial disso.</p>
+  <button class="btn-iniciar" onclick="mostrar('tela-quiz');renderQ(0)">Iniciar scanner →</button>
+  <div class="capa-badges">
+    <span class="capa-badge">Gratuito</span>
+    <span class="capa-badge">3 minutos</span>
+    <span class="capa-badge">Resultado imediato</span>
+    <span class="capa-badge">Sem cadastro para começar</span>
+  </div>
+</div>
+
+<div class="tela" id="tela-quiz">
+  <div class="q-wrap">
+    <div class="q-progresso" id="q-progresso"></div>
+    <div class="q-numero" id="q-numero"></div>
+    <div class="q-texto" id="q-texto"></div>
+    <div class="q-opcoes" id="q-opcoes"></div>
+  </div>
+</div>
+
+<div class="tela" id="tela-captura">
+  <div class="cap-inner">
+    <div class="cap-eyebrow">Seu resultado está pronto</div>
+    <h2 class="cap-h2">Onde enviar sua análise de tensões patrimoniais?</h2>
+    <p class="cap-sub">Informe seus dados para revelar sua tensão dominante e os custos patrimoniais do seu perfil.</p>
+    <div class="cap-form">
+      <div><label class="cap-label">Nome</label><input class="cap-input" id="cap-nome" type="text" placeholder="Como prefere ser chamado(a)"></div>
+      <div><label class="cap-label">WhatsApp</label><input class="cap-input" id="cap-tel" type="tel" placeholder="(11) 99999-9999" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9\s()+-]/g,'')"></div>
+      <div><label class="cap-label">E-mail</label><input class="cap-input" id="cap-email" type="email" placeholder="seu@email.com.br"></div>
+      <button class="btn-revelar" onclick="finalizarCaptura()">Revelar minha tensão dominante →</button>
+      <p class="cap-privacidade">Seus dados são tratados com absoluta confidencialidade</p>
+    </div>
+  </div>
+</div>
+
+<div class="tela" id="tela-loading">
+  <div class="loading-ring"></div>
+  <p class="loading-txt">Identificando sua tensão dominante…</p>
+</div>
+
+<div class="tela" id="tela-resultado"></div>
+
+<script>
+const FOTO = 'https://raw.githubusercontent.com/ivanlvianna/arquivospessoais/main/fotolvan.jpeg';
+const WH = 'https://script.google.com/macros/s/AKfycbzsVpO_OoWVjENJyDP2MCY-wGNqSnuz1oc6txaATRksQNRJCwrOaJaKlGzv2bQQI0I/exec';
+const LANDING = 'https://ivanlvianna.github.io/diagnosticotensoespatrimoniais/landing-diagnostico-tensoes-patrimoniais.html';
+
+// TENSÕES — IDs mapeiam para dimensões do diagnóstico
+const T = {
+  rec:'Reconhecimento',
+  per:'Pertencimento',
+  com:'Compensação',
+  gra:'Gratificação',
+  seg:'Segurança',
+  pro:'Propósito'
+};
+
+const PERFIS = {
+  rec:{
+    desc:'Suas decisões patrimoniais são frequentemente influenciadas pela necessidade de ser visto, valorizado e reconhecido. O que os outros pensam entra na equação — mesmo quando você não percebe.',
+    frase:'"Decido para impressionar, não apenas para construir."',
+    custos:['Gastos que excedem a necessidade real para sinalizar status e competência','Decisões adiadas por medo de errar publicamente','Concentração em ativos visíveis em detrimento de eficiência financeira','Vulnerabilidade a propostas que oferecem validação antes de retorno']
+  },
+  per:{
+    desc:'Vínculos e a necessidade de ser aceito influenciam como você usa, distribui e protege o que tem. O medo de exclusão cobra um preço patrimonial que raramente aparece nos relatórios.',
+    frase:'"Abro mão do que é meu para manter o que é nosso."',
+    custos:['Decisões financeiras para manter vínculos em lugar de avançar objetivos próprios','Fianças ou empréstimos motivados pelo medo de exclusão','Escolhas alinhadas ao grupo — não à sua estratégia','Dificuldade em divergir financeiramente mesmo quando seria acertado']
+  },
+  com:{
+    desc:'O que você acumulou e como gasta carrega a memória de esforços, privações e déficits que o dinheiro tenta reparar. A questão não é o quanto você tem — é o que você espera que o patrimônio resolva.',
+    frase:'"O dinheiro tenta resolver o que o dinheiro não resolve."',
+    custos:['Gastos cíclicos sem propósito claro — que reaparecem após esforço intenso','Acumulação sem usufruto, seguida de liberação impulsiva','Percepção de que ainda não é suficiente — o patamar se desloca','Uso do patrimônio para preencher déficits que não têm solução financeira']
+  },
+  gra:{
+    desc:'O presente tem um peso maior do que o horizonte de longo prazo. Quando não gerenciada, essa força consome o futuro antes de ele chegar — e deixa pouca evidência de passagem.',
+    frase:'"O futuro paga o preço do presente que não espera."',
+    custos:['Patrimônio que cresce mais lentamente do que a renda permitiria','Decisões motivadas pela excitação da novidade, não pela análise','Ciclos de comprometimento e arrependimento em gastos e alocações','Dificuldade em manter estratégias de longo prazo']
+  },
+  seg:{
+    desc:'O medo de perder governa mais do que o desejo de construir. Isso produz proteção real — mas também paralisia e um custo de oportunidade que se acumula silenciosamente ao longo do tempo.',
+    frase:'"Protejo tanto que esqueço de construir."',
+    custos:['Liquidez mantida além do necessário — como anestésico emocional','Oportunidades patrimoniais perdidas por paralisia diante de incerteza gerenciável','Portfólio excessivamente conservador em relação ao horizonte real','Custo de atenção em controle excessivo sem retorno proporcional']
+  },
+  pro:{
+    desc:'A pergunta "para quê?" não foi respondida — e ela retorna em cada grande decisão. Sem clareza de propósito, o patrimônio cresce, mas o sentido de enriquecimento não acompanha.',
+    frase:'"Acumulo, mas não sei para quê."',
+    custos:['Acumulação sem direção — patrimônio que cresce mas não serve a nada claramente definido','Decisões fragmentadas sem fio condutor','Dificuldade em estabelecer critérios para usufruir — sempre parece cedo demais','Planejamento sucessório postergado — sem clareza sobre o que transmitir além do volume']
+  }
+};
+
+// 10 QUESTÕES — cada opção tem peso para uma tensão
+const QS = [
+  {
+    txt:'Uma oportunidade de investimento relevante surge. Antes de analisar os números, qual é sua primeira reação espontânea?',
+    opcoes:[
+      {l:'A', txt:'Penso em como essa decisão vai me posicionar perante meus pares', t:'rec'},
+      {l:'B', txt:'Penso nos meus familiares ou sócios — como eles vão reagir', t:'per'},
+      {l:'C', txt:'Sinto que mereço aproveitar isso após tanto esforço', t:'com'},
+      {l:'D', txt:'Fico animado com a novidade e quero entrar logo', t:'gra'},
+      {l:'E', txt:'Minha primeira pergunta é sobre o risco — quero entender o pior cenário', t:'seg'},
+      {l:'F', txt:'Me pergunto se isso realmente faz sentido com o que quero construir', t:'pro'},
+    ]
+  },
+  {
+    txt:'Você acabou de ter um resultado financeiro muito acima do esperado. O que acontece nos meses seguintes?',
+    opcoes:[
+      {l:'A', txt:'Invisto em algo que melhore minha imagem ou posição social', t:'rec'},
+      {l:'B', txt:'Distribuo parte para pessoas próximas — parece injusto ter tanto mais', t:'per'},
+      {l:'C', txt:'Permito gastos que vinham sendo adiados — é hora de se recompensar', t:'com'},
+      {l:'D', txt:'Logo aparecem novas oportunidades e o dinheiro se move rapidamente', t:'gra'},
+      {l:'E', txt:'Reforço minha reserva — segurança em primeiro lugar', t:'seg'},
+      {l:'F', txt:'Fico em dúvida sobre o que fazer — não tenho clareza suficiente', t:'pro'},
+    ]
+  },
+  {
+    txt:'Alguém próximo faz uma escolha patrimonial muito diferente da sua. Como você se sente?',
+    opcoes:[
+      {l:'A', txt:'Analiso se minha estratégia ainda parece boa aos olhos dos outros', t:'rec'},
+      {l:'B', txt:'Sinto um desconforto — a divergência me incomoda', t:'per'},
+      {l:'C', txt:'Não me afeta — cada um tem sua história e merecimento', t:'com'},
+      {l:'D', txt:'Fico curioso — talvez haja algo interessante que não estou vendo', t:'gra'},
+      {l:'E', txt:'Me sinto mais seguro na minha posição conservadora', t:'seg'},
+      {l:'F', txt:'Me pergunto se sei o suficiente sobre minha própria direção', t:'pro'},
+    ]
+  },
+  {
+    txt:'Como você descreve sua relação com gastos relevantes que não são estritamente necessários?',
+    opcoes:[
+      {l:'A', txt:'Gasto quando o item reforça como quero ser percebido', t:'rec'},
+      {l:'B', txt:'Gasto quando há pressão social ou para não me diferenciar do grupo', t:'per'},
+      {l:'C', txt:'Gasto quando sinto que trabalhei muito e mereço algo bom', t:'com'},
+      {l:'D', txt:'Gasto quando algo me empolga — a decisão é rápida', t:'gra'},
+      {l:'E', txt:'Raramente gasto — prefiro manter o recurso disponível', t:'seg'},
+      {l:'F', txt:'Gasto, mas muitas vezes sem clareza real do porquê', t:'pro'},
+    ]
+  },
+  {
+    txt:'Você recebe uma crítica relevante sobre uma decisão patrimonial que tomou. Qual é sua reação mais honesta?',
+    opcoes:[
+      {l:'A', txt:'Me preocupo com o que a crítica significa para minha reputação', t:'rec'},
+      {l:'B', txt:'Me preocupo se a pessoa afetada vai continuar me respeitando', t:'per'},
+      {l:'C', txt:'Sinto que depois de tanto esforço não mereço ser questionado', t:'com'},
+      {l:'D', txt:'Já estou pensando na próxima decisão — o passado não me prende', t:'gra'},
+      {l:'E', txt:'Revisito tudo — quero ter certeza de que não há mais riscos', t:'seg'},
+      {l:'F', txt:'Me questiono se estou seguindo a direção certa de fato', t:'pro'},
+    ]
+  },
+  {
+    txt:'Quando pensa em legado — o que quer deixar —, qual é a pergunta mais presente?',
+    opcoes:[
+      {l:'A', txt:'Como serei lembrado?', t:'rec'},
+      {l:'B', txt:'Minha família vai estar unida depois de mim?', t:'per'},
+      {l:'C', txt:'Meu esforço vai ser reconhecido e recompensado?', t:'com'},
+      {l:'D', txt:'Haverá oportunidades para quem vier depois?', t:'gra'},
+      {l:'E', txt:'O patrimônio estará protegido e seguro?', t:'seg'},
+      {l:'F', txt:'O que realmente importa deixar para trás?', t:'pro'},
+    ]
+  },
+  {
+    txt:'Em períodos de maior pressão ou incerteza, o que muda na sua relação com dinheiro?',
+    opcoes:[
+      {l:'A', txt:'Fico mais atento ao que os outros pensam sobre minhas escolhas', t:'rec'},
+      {l:'B', txt:'Busco apoio e aprovação do meu círculo antes de decidir', t:'per'},
+      {l:'C', txt:'Tendo a me dar algum alívio — uma compra, uma viagem', t:'com'},
+      {l:'D', txt:'Busco ações — me sinto melhor tomando decisões do que esperando', t:'gra'},
+      {l:'E', txt:'Fico mais conservador e aumentar liquidez me tranquiliza', t:'seg'},
+      {l:'F', txt:'Me sinto mais perdido — a incerteza amplifica a falta de direção', t:'pro'},
+    ]
+  },
+  {
+    txt:'Você está avaliando desfazer um investimento que perdeu valor. O que mais pesa na sua decisão?',
+    opcoes:[
+      {l:'A', txt:'O que vão pensar de mim se eu assumir a perda', t:'rec'},
+      {l:'B', txt:'Se os outros envolvidos vão me culpar pela decisão', t:'per'},
+      {l:'C', txt:'Que trabalhei muito para perder isso — sinto que não é justo', t:'com'},
+      {l:'D', txt:'Que posso recuperar rápido em outro ativo', t:'gra'},
+      {l:'E', txt:'Que prefiro manter e esperar — vender parece muito arriscado', t:'seg'},
+      {l:'F', txt:'Se isso ainda faz sentido com o que estou tentando construir', t:'pro'},
+    ]
+  },
+  {
+    txt:'Como você descreveria sua estratégia patrimonial atual em uma frase honesta?',
+    opcoes:[
+      {l:'A', txt:'Está alinhada com o estilo de vida que quero projetar', t:'rec'},
+      {l:'B', txt:'Foi construída pensando também nas pessoas ao meu redor', t:'per'},
+      {l:'C', txt:'Reflete o que conquistei com muito esforço ao longo dos anos', t:'com'},
+      {l:'D', txt:'Vai mudando conforme surgem oportunidades interessantes', t:'gra'},
+      {l:'E', txt:'Prioriza proteção e estabilidade acima de tudo', t:'seg'},
+      {l:'F', txt:'Existe, mas não tenho certeza se está realmente a serviço de algo', t:'pro'},
+    ]
+  },
+  {
+    txt:'Se você pudesse identificar a maior força invisível que atua nas suas decisões patrimoniais, ela seria:',
+    opcoes:[
+      {l:'A', txt:'A necessidade de ser reconhecido e visto como bem-sucedido', t:'rec'},
+      {l:'B', txt:'O desejo de manter vínculos e não me diferenciar demais', t:'per'},
+      {l:'C', txt:'A sensação de que mereço mais depois de tanto esforço', t:'com'},
+      {l:'D', txt:'A atração pelo novo e pela possibilidade imediata', t:'gra'},
+      {l:'E', txt:'O medo de perder o que já construí', t:'seg'},
+      {l:'F', txt:'A falta de clareza sobre para que tudo isso serve', t:'pro'},
+    ]
+  }
+];
+
+// ESTADO
+const ST = {respostas:[], nome:'', tel:'', email:''};
+let qAtual = 0;
+
+function mostrar(id){
+  document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
+  document.getElementById(id).classList.add('ativa');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function atualizarProg(){
+  const pct = Math.round((ST.respostas.length/QS.length)*100);
+  document.getElementById('prog-label').textContent = ST.respostas.length+' / '+QS.length;
+  document.getElementById('prog-fill').style.width = pct+'%';
+}
+
+function renderQ(idx){
+  qAtual = idx;
+  const q = QS[idx];
+
+  // Dots
+  let dots = '';
+  for(let i=0;i<QS.length;i++){
+    const cl = i<ST.respostas.length?'feito':i===idx?'atual':'';
+    dots += `<div class="q-prog-dot ${cl}"></div>`;
+  }
+  document.getElementById('q-progresso').innerHTML = dots;
+  document.getElementById('q-numero').textContent = 'Situação '+(idx+1)+' de '+QS.length;
+  document.getElementById('q-texto').textContent = q.txt;
+
+  let opHtml = '';
+  q.opcoes.forEach((op,i)=>{
+    opHtml += `<button class="q-opcao" onclick="selecionarOp(${idx},'${op.t}',this)">
+      <div class="q-letra">${op.l}</div>
+      <div class="q-opcao-txt">${op.txt}</div>
+    </button>`;
+  });
+  document.getElementById('q-opcoes').innerHTML = opHtml;
+  atualizarProg();
+}
+
+function selecionarOp(idx, tensao, btn){
+  document.querySelectorAll('.q-opcao').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  setTimeout(()=>{
+    if(ST.respostas.length <= idx) ST.respostas.push(tensao);
+    else ST.respostas[idx] = tensao;
+    atualizarProg();
+    if(idx < QS.length-1){
+      renderQ(idx+1);
+    } else {
+      mostrar('tela-captura');
+    }
+  }, 350);
+}
+
+function finalizarCaptura(){
+  const nome  = document.getElementById('cap-nome').value.trim();
+  const tel   = document.getElementById('cap-tel').value.trim();
+  const email = document.getElementById('cap-email').value.trim();
+  if(!nome){alert('Por favor, informe seu nome.');return;}
+  if(!tel && !email){alert('Informe ao menos WhatsApp ou e-mail.');return;}
+  ST.nome=nome; ST.tel=tel.replace(/\D/g,''); ST.email=email;
+  mostrar('tela-loading');
+  setTimeout(()=>{enviarWebhook();renderResultado();}, 1600);
+}
+
+function calcScores(){
+  const sc = {rec:0,per:0,com:0,gra:0,seg:0,pro:0};
+  ST.respostas.forEach(t=>{ if(sc[t]!==undefined) sc[t]++; });
+  let dom = 'rec', maxV = 0;
+  Object.entries(sc).forEach(([k,v])=>{ if(v>maxV){maxV=v;dom=k;} });
+  return {sc, dom};
+}
+
+function enviarWebhook(){
+  try{
+    const {sc,dom} = calcScores();
+    const p = new URLSearchParams({
+      sheet:'TensoesPatrimoniais',
+      nome:ST.nome, tel:ST.tel, email:ST.email,
+      tensao_dominante:T[dom],
+      rec:sc.rec,per:sc.per,com:sc.com,gra:sc.gra,seg:sc.seg,pro:sc.pro
+    });
+    new Image().src = WH+'?'+p.toString();
+  }catch(e){}
+}
+
+function renderResultado(){
+  const {sc,dom} = calcScores();
+  const perf = PERFIS[dom];
+  const total = QS.length;
+
+  let barrasHtml = Object.entries(T).map(([k,nome])=>{
+    const pct = Math.round((sc[k]/total)*100);
+    return `<div class="barra-item">
+      <div class="barra-topo"><span class="barra-nome">${nome}</span><span class="barra-pct">${pct}%</span></div>
+      <div class="barra-wrap"><div class="barra-fill" id="bar-${k}" style="width:0%"></div></div>
+    </div>`;
+  }).join('');
+
+  const nomeEnc = encodeURIComponent(ST.nome);
+  const domEnc  = encodeURIComponent(T[dom]);
+
+  document.getElementById('tela-resultado').innerHTML = `
+    <div class="res-inner">
+      <div class="res-supra">Scanner VIDA · Tensões Patrimoniais™</div>
+      <h2 class="res-titulo">${ST.nome}, sua tensão dominante é<br><strong>${T[dom]}</strong></h2>
+      <div class="tensao-card">
+        <div class="tensao-label">Tensão dominante identificada</div>
+        <div class="tensao-nome">${T[dom]}</div>
+        <div class="tensao-desc">${perf.desc}</div>
+        <div class="tensao-frase">${perf.frase}</div>
+      </div>
+      <div class="barras-grid">${barrasHtml}</div>
+      <div class="custo-card">
+        <div class="custo-titulo">O custo patrimonial da tensão de ${T[dom]}</div>
+        ${perf.custos.map(c=>`<div class="custo-item"><div class="custo-dot"></div><div class="custo-txt">${c}</div></div>`).join('')}
+      </div>
+      <div class="cta-diag">
+        <div class="cta-diag-titulo">Este é apenas o mapeamento inicial</div>
+        <p class="cta-diag-sub">O Diagnóstico VIDA de Tensões Patrimoniais™ aprofunda as duas camadas — humana e patrimonial — e produz o Plano VIDA de Regulação das Tensões Patrimoniais™, personalizado com base nas suas respostas específicas.</p>
+        <a class="btn-cta" href="${LANDING}?nome=${nomeEnc}&tensao=${domEnc}" target="_blank">Conhecer o diagnóstico completo →</a>
+      </div>
+      <div style="text-align:center;margin-bottom:2rem">
+        <img src="${FOTO}" alt="Ivan Vianna CFP®" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid rgba(215,174,77,.4);margin-bottom:1rem">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--br);font-weight:600">Ivan Vianna</div>
+        <div style="font-size:.82rem;color:var(--d);margin-top:.25rem">CFP® · Planejador financeiro · Arquiteto de patrimônio</div>
+      </div>
+      <div class="assinatura">Ivan Vianna · CFP® · CNPJ 56.099.913/0001-61 · ivanviannafinancas.com.br</div>
+    </div>`;
+
+  mostrar('tela-resultado');
+  setTimeout(()=>{
+    Object.keys(T).forEach(k=>{
+      const el=document.getElementById('bar-'+k);
+      if(el) el.style.width=Math.round((sc[k]/total)*100)+'%';
+    });
+  },200);
+}
+</script>
+</body>
+</html>
